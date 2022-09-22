@@ -1,6 +1,8 @@
 package controllers
 
-import "github.com/MD-ARMAN-Shanto/gostack/api/middlewares"
+import (
+	"github.com/MD-ARMAN-Shanto/gostack/api/middlewares"
+)
 
 func (server *Server) initializeRoutes() {
 

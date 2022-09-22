@@ -5,6 +5,7 @@ import (
 	"github.com/MD-ARMAN-Shanto/gostack/api/models"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"log"
 	"net/http"
 )
@@ -18,7 +19,7 @@ func (server *Server) Initialize(DbDriver, DbUser, DbPassword, DbPort, DbHost, D
 	var err error
 
 	if DbDriver == "postgres" {
-		DBURL := fmt.Sprintf("\"host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
+		DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
 		server.DB, err = gorm.Open(DbDriver, DBURL)
 		if err != nil {
 			fmt.Printf("Cannot connect to %s database", DbDriver)
