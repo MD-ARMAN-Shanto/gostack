@@ -12,6 +12,7 @@ import (
 )
 
 func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
+
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		responses.Error(w, http.StatusUnprocessableEntity, err)
@@ -26,6 +27,7 @@ func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 
 	user.Prepare()
 	err = user.Validate("login")
+
 	if err != nil {
 		responses.Error(w, http.StatusUnprocessableEntity, err)
 		return
