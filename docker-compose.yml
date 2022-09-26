@@ -1,0 +1,54 @@
+version: '3'
+services:
+  app:
+    container_name: gostack_app
+    build: .
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    volumes:
+      - api:/usr/src/app
+    depends_on:
+      - db_postgres
+    networks:
+      - gostack
+
+  db_postgres:
+    image: postgres:latest
+    container_name: gostack_db_postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST=${DB_HOST}
+#    expose:
+#      - "${DB_PORT}"
+    ports:
+      - "5455:5432"
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - gostack
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - db_postgres
+    ports:
+      - "5050:80"
+    networks:
+      - gostack
+    restart: unless-stopped
+
+volumes:
+  api:
+  database_postgres:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  gostack:
+    driver: bridge
