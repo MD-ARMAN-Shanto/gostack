@@ -17,7 +17,6 @@ type Server struct {
 
 func (server *Server) Initialize(DbDriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
 	var err error
-
 	if DbDriver == "postgres" {
 		DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
 		server.DB, err = gorm.Open(DbDriver, DBURL)
