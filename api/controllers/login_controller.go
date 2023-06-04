@@ -7,13 +7,13 @@ import (
 	"github.com/MD-ARMAN-Shanto/gostack/api/responses"
 	"github.com/MD-ARMAN-Shanto/gostack/api/utils/formaterror"
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		responses.Error(w, http.StatusUnprocessableEntity, err)
 		return
